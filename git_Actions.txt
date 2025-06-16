@@ -1,0 +1,24 @@
+Actios: its a ci/cd platform wich allow us to automate, the build deployment and soon.
+steps:
+1. setup from start
+2. we can use the existing file in the action page.
+
+
+azure devops - agents(machin called)
+github action -runners(machin called)
+jenkins -nodes(machin called)
+compute machines which help you to run the jobs/files/pipelines
+platforms --- but they dnt provide any compute machine
+storing ur files but to execute these file u need a machine like mentined above
+
+2 types
+1.self hosted -- u have ur own machine which ur using to run the files,
+u create ur iwn vm in which u need to run the set if steps to make a connection btw github and vm 
+and u can run the set if command on ur laptop then this laptop will become the runner for the jobs
+
+2.platform service procider hosted -- it means those platforms are provideing u the machine to run the 
+file and as soon as its work done it delete the machines
+
+
+i created the action file in personal github called blank.yamal
+

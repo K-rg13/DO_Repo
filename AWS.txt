@@ -1,0 +1,13 @@
+user id: kokila.gowda@socgen.com
+pass: tQmE0+=|
+link for console: https://hemantchd94.signin.aws.amazon.com/console
+
+secret manager:
+to access it we need authentication
+that we can get from secret git hub
+
+script powershell
+user bane ND Password for ur vm
+
+then we can retrive the value from scm
+===========================================
