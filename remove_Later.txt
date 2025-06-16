@@ -2,3 +2,4 @@
 local: C:\Program Files\Git 
 vscode: c:User\admin\Downloads\vs.... or C:\Users\admin\AppData\Local\Programs\Microsoft VS Code
 global config
+ok
