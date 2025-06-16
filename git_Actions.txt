@@ -22,3 +22,7 @@ file and as soon as its work done it delete the machines
 
 i created the action file in personal github called blank.yamal
 
+
+git cheat link where it has lot of commands: https://education.github.com/git-cheat-sheet-education.pdf
+gui tools: to perform the git actions example below:
+tortoise git, source tree, github desktop, vs code, command prompt.

@@ -64,9 +64,13 @@ steps:
 2. we can use the existing file in the action page.
 =============================================================
 terraform:
+install: https://developer.hashicorp.com/terraform/install
+extract> get the path and add in evn variable locally>open env variable select path in user and system> select new >paste the path> ok>
+open the cmd> terraform --version
 
-docker
-aws cli
+docker: https://docs.docker.com/desktop/setup/install/windows-install/ first
+aws cli: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+putty: https://www.putty.org/
 
 
 
