@@ -36,7 +36,7 @@ pipeline {
 
                     echo "Copying file..."
 
-                    cp "${SOURCE_DIR}/${FILE_NAME}" "${DEST_DIR}/"
+                    cp -r "${SOURCE_DIR}/${FILE_NAME}" "${DEST_DIR}/"
 
                     echo "File copied successfully."
 
