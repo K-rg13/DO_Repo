@@ -1,53 +1,46 @@
 pipeline {
-
     agent { label "demo-kokila-agent" }
  
     parameters {
-
-        string(name: 'SOURCE_DIR', defaultValue: '/tmp/source', description: 'Source folder path')
-
-        string(name: 'DEST_DIR', defaultValue: '/tmp/destination', description: 'Destination folder path')
-
-        string(name: 'FILE_NAME', defaultValue: 'file.txt', description: 'File name to copy')
-
+        string(name: 'FOLDER1', defaultValue: '/tmp/source', description: 'Source folder path')
+        string(name: 'FOLDER2', defaultValue: '/tmp/destination', description: 'Destination folder path')
+        string(name: 'FILENAME', defaultValue: 'example.txt', description: 'File name to copy')
     }
  
     stages {
-
-        stage('Show Inputs') {
-
+        stage('Validate Inputs') {
             steps {
-
-                echo "Source Folder: ${params.SOURCE_DIR}"
-
-                echo "Destination Folder: ${params.DEST_DIR}"
-
-                echo "File to copy: ${params.FILE_NAME}"
-
+                script {
+                    if (!params.FOLDER1?.trim() || !params.FOLDER2?.trim() || !params.FILENAME?.trim()) {
+                        error "One or more parameters are empty. Aborting."
+                    }
+                }
             }
-
+        }
+ 
+        stage('Show Input Values') {
+            steps {
+                echo "Source: ${params.FOLDER1}/${params.FILENAME}"
+                echo "Destination: ${params.FOLDER2}/"
+            }
         }
  
         stage('Copy File') {
-
             steps {
-
-                sh '''
-
-                    echo "Copying file..."
-
-                    cp -r "${SOURCE_DIR}/${FILE_NAME}" "${DEST_DIR}/"
-
-                    echo "File copied successfully."
-
-                '''
-
+                sh """
+                    echo "Copying file from ${params.FOLDER1}/${params.FILENAME} to ${params.FOLDER2}/"
+ 
+                    if [ ! -f "${params.FOLDER1}/${params.FILENAME}" ]; then
+                      echo "Source file does not exist. Aborting."
+                      exit 1
+                    fi
+ 
+                    cp "${params.FOLDER1}/${params.FILENAME}" "${params.FOLDER2}/"
+                    echo "Copy successful!"
+                """
             }
-
         }
-
     }
-
 }
 
  
