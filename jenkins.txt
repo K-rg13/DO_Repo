@@ -459,3 +459,28 @@ pipeline {
     }
 }
 
+dashboard> manage> system>
+--------------below
+how to keep the backup, 
+we can do usng the system path /var/lib/jenkins
+then go to master instance > cd above path>
+ls>
+it has complete details of the master > from this also we can take the backup SLmvCoEmcpFXUOWJGlR8yhfPb2eaZxAanirhnMF09sixYc3uk8WNCFHKRxa5ZzFUKcZ7CcD83lBvaObQ
+>
+system message: notification section.
+executors: no of node running parallely
+labels: any label for master machine
+ip address: jenkis url will be here
+admin e-mail: like admin get all info
+mtrics: how many people using secret
+pipeline speed: needs to be faster else queue will take time.
+heath:
+https proxy: like how we provide proxy
+timestamo:
+github servres: github platform, 2 selfhosted (made a setup of github)
+and so on...
+
+
+authentication between aws and github:
+plugins aws credentials> install> username and Password and access key>
+
