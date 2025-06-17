@@ -7,10 +7,11 @@ pipeline {
 
     stages {
         stage('Create Directories') {
+// for permision we can use sudo else in jenkins we can give permission
             steps {
                 sh '''
-                    mkdir -p /home/kokila
-                    mkdir -p /home/gowda
+                    sudo mkdir -p /home/kokila
+                    sudo mkdir -p /home/gowda
                 '''
             }
         }
@@ -18,8 +19,8 @@ pipeline {
         stage('Create File') {
             steps {
                 sh '''
-                    cd /home/kokila
-                    touch abc.txt
+                   sudo cd /home/kokila
+                   sudo touch abc.txt
                 '''
             }
         }
@@ -27,7 +28,7 @@ pipeline {
         stage('Copy File') {
             steps {
                 sh '''
-                    cp /home/kokila/abc.txt /home/gowda/
+                  sudo cp /home/kokila/abc.txt /home/gowda/
                 '''
             }
         }
