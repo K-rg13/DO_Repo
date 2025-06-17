@@ -20,7 +20,7 @@ pipeline {
             steps {
                 sh '''
                    cd /home/kokila
-                   touch abc.txt
+                   sudo touch abc.txt
                 '''
             }
         }
