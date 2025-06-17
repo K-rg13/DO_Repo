@@ -165,6 +165,15 @@ pipeline steps: will give the brif of he process
 
 
 
+better way:
+using git so we can manage the version
+so instead of adding script in jenkins
+will create new file called jekinssfile paste the sample file 
+merge the code, copy the repi link >come back to jenkins>
+Definition select SMC in this selec git> we need to fill the proper details>
+like url ,branch name and all 
+script path should be exact match 
+so this will make sure any changes are there then we can hangle in git a good version control.
 
 
 
