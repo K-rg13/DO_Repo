@@ -19,8 +19,8 @@ pipeline {
         stage('Create File') {
             steps {
                 sh '''
-                   sudo cd /home/kokila
-                   sudo touch abc.txt
+                   cd /home/kokila
+                   touch abc.txt
                 '''
             }
         }
