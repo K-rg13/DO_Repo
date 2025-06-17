@@ -195,7 +195,7 @@ Uncheck ✅ "Prevent Cross Site Request Forgery exploits"
  
 
  using git webhook> use jenkis url/github-webhook/> go to jenlns in account secute
- > [paste the secret]> disable ssl for public> then select the event>
+ > [paste the secret] 11eb63e9c9eaa716be34cf9adfa664efac > disable ssl for public> then select the event>
  then add.
 
 
