@@ -1,0 +1,36 @@
+pipeline {
+    agent { label "demo-kokila-agent" }
+
+    tools {
+        maven "M3"
+    }
+
+    stages {
+        stage('Create Directories') {
+// for permision we can use sudo else in jenkins we can give permission
+            steps {
+                sh '''
+                    sudo mkdir -p /home/kokila
+                    sudo mkdir -p /home/gowda
+                '''
+            }
+        }
+
+        stage('Create File') {
+            steps {
+                sh '''
+                   cd /home/kokila
+                   sudo touch abc.txt
+                '''
+            }
+        }
+
+        stage('Copy File') {
+            steps {
+                sh '''
+                  sudo cp /home/kokila/abc.txt /home/gowda/
+                '''
+            }
+        }
+    }
+}
