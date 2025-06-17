@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "demo-kokila-agent" }
+    agent any
  
     parameters {
         string(name: 'FOLDER1', defaultValue: '/tmp/source', description: 'Source folder path')
@@ -8,6 +8,17 @@ pipeline {
     }
  
     stages {
+        stage('Create File') {
+            steps {
+                sh """
+                    echo "Creating source folder: ${params.FOLDER1}"
+                    mkdir -p "${params.FOLDER1}"
+                    echo "This is a test file created by Jenkins." > "${params.FOLDER1}/${params.FILENAME}"
+                    echo "File created: ${params.FOLDER1}/${params.FILENAME}"
+                """
+            }
+        }
+ 
         stage('Validate Inputs') {
             steps {
                 script {
@@ -28,7 +39,8 @@ pipeline {
         stage('Copy File') {
             steps {
                 sh """
-                    echo "Copying file from ${params.FOLDER1}/${params.FILENAME} to ${params.FOLDER2}/"
+                    echo "Creating destination folder if not exists: ${params.FOLDER2}"
+                    mkdir -p "${params.FOLDER2}"
  
                     if [ ! -f "${params.FOLDER1}/${params.FILENAME}" ]; then
                       echo "Source file does not exist. Aborting."
@@ -36,12 +48,9 @@ pipeline {
                     fi
  
                     cp "${params.FOLDER1}/${params.FILENAME}" "${params.FOLDER2}/"
-                    echo "Copy successful!"
+                    echo "File successfully copied to ${params.FOLDER2}/"
                 """
             }
         }
     }
 }
-
- 
-
