@@ -1,4 +1,5 @@
 pipeline {
+//  agent {label: demo-kokila-agent}
     agent any
  
     parameters {
