@@ -1,36 +1,54 @@
 pipeline {
+
     agent { label "demo-kokila-agent" }
+ 
+    parameters {
 
-    tools {
-        maven "M3"
+        string(name: 'SOURCE_DIR', defaultValue: '/tmp/source', description: 'Source folder path')
+
+        string(name: 'DEST_DIR', defaultValue: '/tmp/destination', description: 'Destination folder path')
+
+        string(name: 'FILE_NAME', defaultValue: 'file.txt', description: 'File name to copy')
+
     }
-
+ 
     stages {
-        stage('Create Directories') {
-            steps {
-                sh '''
-                    sudo mkdir -p "$SOURCE_DIR"
-                    sudo mkdir -p "$DEST_DIR"
-                '''
-            }
-        }
 
-        stage('Create File') {
-            steps {
-                sh '''
-                    cd "$SOURCE_DIR"
-                    sudo touch "$FILE_NAME"
-                '''
-            }
-        }
+        stage('Show Inputs') {
 
+            steps {
+
+                echo "Source Folder: ${params.SOURCE_DIR}"
+
+                echo "Destination Folder: ${params.DEST_DIR}"
+
+                echo "File to copy: ${params.FILE_NAME}"
+
+            }
+
+        }
+ 
         stage('Copy File') {
+
             steps {
+
                 sh '''
-                    sudo cp "$SOURCE_DIR/$FILE_NAME" "$DEST_DIR/"
+
+                    echo "Copying file..."
+
+                    cp "${SOURCE_DIR}/${FILE_NAME}" "${DEST_DIR}/"
+
+                    echo "File copied successfully."
+
                 '''
+
             }
+
         }
+
     }
+
 }
+
+ 
 
