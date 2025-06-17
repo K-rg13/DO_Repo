@@ -5,12 +5,6 @@ pipeline {
         maven "M3"
     }
 
-    environment {
-        SOURCE_DIR = "/home/kokila1"
-        DEST_DIR = "/home/gowda1"
-        FILE_NAME = "abc1.txt"
-    }
-
     stages {
         stage('Create Directories') {
             steps {
