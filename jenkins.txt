@@ -184,7 +184,7 @@ des:
 appid:
 key: pat token we need to add
 for pat > go to github progile> settign> developer setting>
-create new pat token, personal access token>classic> classic>
+create new pat token, personal access token>classic> classic>  
 add note, and generate the code
 copy the token and in above jenkins path.
 if we get no valid crumb
@@ -197,6 +197,7 @@ Uncheck ✅ "Prevent Cross Site Request Forgery exploits"
  using git webhook> use jenkis url/github-webhook/> go to jenlns in account secute
  > [paste the secret] 11eb63e9c9eaa716be34cf9adfa664efac > disable ssl for public> then select the event>
  then add.
+ if hook not triggered in jenkis add a github integration pulgins in jenkis manage jenkins > pulgins> available> install> restart the jenknis serevice
 
 
 
