@@ -175,7 +175,28 @@ like url ,branch name and all
 script path should be exact match 
 so this will make sure any changes are there then we can hangle in git a good version control.
 
+if private repo:
+add the credentials, bcs repo path will give error
+domain< gloabl credentials
+kind : username and pass or Github app
+ID: github1 (should be unique in j env)
+des:
+appid:
+key: pat token we need to add
+for pat > go to github progile> settign> developer setting>
+create new pat token, personal access token>classic> classic>
+add note, and generate the code
+copy the token and in above jenkins path.
+if we get no valid crumb
+try command or try to resolve the issue
 
+Go to: Manage Jenkins → Configure Global Security
+Uncheck ✅ "Prevent Cross Site Request Forgery exploits"
+ 
+
+ using git webhook> use jenkis url/github-webhook/> go to jenlns in account secute
+ > [paste the secret]> disable ssl for public> then select the event>
+ then add.
 
 
 
