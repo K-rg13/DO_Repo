@@ -184,7 +184,7 @@ des:
 appid:
 key: pat token we need to add
 for pat > go to github progile> settign> developer setting>
-create new pat token, personal access token>classic> classic>
+create new pat token, personal access token>classic> classic>  
 add note, and generate the code
 copy the token and in above jenkins path.
 if we get no valid crumb
