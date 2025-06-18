@@ -1,0 +1,57 @@
+pipeline {
+//  agent {label: demo-kokila-agent}
+    agent any
+ 
+    parameters {
+        string(name: 'FOLDER1', defaultValue: '/tmp/source', description: 'Source folder path')
+        string(name: 'FOLDER2', defaultValue: '/tmp/destination', description: 'Destination folder path')
+        string(name: 'FILENAME', defaultValue: 'example.txt', description: 'File name to copy')
+    }
+ 
+    stages {
+        stage('Create File') {
+            steps {
+                sh """
+                    echo "Creating source folder: ${params.FOLDER1}"
+                    mkdir -p "${params.FOLDER1}"
+                    echo "This is a test file created by Jenkins." > "${params.FOLDER1}/${params.FILENAME}"
+                    echo "File created: ${params.FOLDER1}/${params.FILENAME}"
+                """
+            }
+        }
+ 
+        stage('Validate Inputs') {
+            steps {
+                script {
+                    if (!params.FOLDER1?.trim() || !params.FOLDER2?.trim() || !params.FILENAME?.trim()) {
+                        error "One or more parameters are empty. Aborting."
+                    }
+                }
+            }
+        }
+ 
+        stage('Show Input Values') {
+            steps {
+                echo "Source: ${params.FOLDER1}/${params.FILENAME}"
+                echo "Destination: ${params.FOLDER2}/"
+            }
+        }
+ 
+        stage('Copy File') {
+            steps {
+                sh """
+                    echo "Creating destination folder if not exists: ${params.FOLDER2}"
+                    mkdir -p "${params.FOLDER2}"
+ 
+                    if [ ! -f "${params.FOLDER1}/${params.FILENAME}" ]; then
+                      echo "Source file does not exist. Aborting."
+                      exit 1
+                    fi
+ 
+                    cp "${params.FOLDER1}/${params.FILENAME}" "${params.FOLDER2}/"
+                    echo "File successfully copied to ${params.FOLDER2}/"
+                """
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+pipeline {
+    agent none  // Disable default agent at top level
+
+    stages {
+        stage('Stage 1 - On Agent A') {
+            agent { label 'demo-kokila-agent' }  // Replace with your actual agent label
+            steps {
+                sh 'echo "Running Stage 1 on Agent A"'
+            }
+        }
+
+        stage('Stage 2 - On Agent B') {
+            agent { label 'demo-kokila-agent2' }  // Replace with your actual agent label
+            steps {
+                sh 'echo "Running Stage 2 on Agent B"'
+            }
+        }
+    }
+}

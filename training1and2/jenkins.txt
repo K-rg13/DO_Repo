@@ -484,3 +484,16 @@ and so on...
 authentication between aws and github:
 plugins aws credentials> install> username and Password and access key>
 
+
+assement_3:
+pipeline 
+
+
+
+stage1: agent1
+command that is supported by ubuntu
+
+
+stage2: run from agent2
+commands are supported by windows
+

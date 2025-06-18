@@ -1,0 +1,54 @@
+what is terraform and enzible?
+
+terraform:
+creating instance:
+cn be done in below steps, login to aws create manually like yesturday
+2. aws cli in which u will write script to create a resources
+IAC= infrastucture as code to create a service.
+
+many tools to do the above in that terraform is best,
+it can be used in 
+azure ===> arm templates/azure biceps
+, aws ===> it has its own terraform call cloud formations
+, gcp,
+ on premessis
+
+ but using terraform we can work with any of the platform
+ any terraform its extenstion will .tf
+ called 
+ main.tf:
+// to tell it we have blocks which give the info of cloud service provider
+//code:
+provider "aws/azure/" {
+    region = "us-west-1"
+}
+//2nd block is for resources, creating a new resources into cloud platforms
+//code: second can be anything to define
+resources 'aws_s3_buket' 'name/abc/xyz and soon' {
+    bucket = 'kokila'
+    //control list u can access the perticular file.
+    acl = 'public-read'
+}
+// we can create a multiple resources on one localtion
+
+then open a terminal or command promt
+commands:
+1.terraform init // it looks for the provider informartion and it will get the dependency or executable files on ur directory
+then> success msg will come
+
+> before execute we need to do aws Configure
+2. aws Configure //to run any command first we need to authenticate so we use this
+then> it will ask the id,>go to aws >account>
+security credentials> access key> generate it> get the access value and pass it in command
+id: access key
+secret: access secret
+region: we can pass or none
+format:  ---||---
+
+the above process complete the authenticate using aws config command
+
+3. terraform plan //if u run the main.tf then what will be the process of code and its impact just like varification process.
+output: will list the creation/edition/destory/ of the resourses.
+in end it will provide the status below
+
+4. terraform apply // it is final command , it will ask for confirmation, once yes then it will start creating on resources
