@@ -6,6 +6,8 @@ cn be done in below steps, login to aws create manually like yesturday
 2. aws cli in which u will write script to create a resources
 IAC= infrastucture as code to create a service.
 
+git extenstion: terraform, hashicrop terraform, aws terraform extenstion pack
+
 many tools to do the above in that terraform is best,
 it can be used in 
 azure ===> arm templates/azure biceps
@@ -28,6 +30,9 @@ resources 'aws_s3_buket' 'name/abc/xyz and soon' {
     bucket = 'kokila'
     //control list u can access the perticular file.
     acl = 'public-read'
+    tags = {
+        environment = dev
+    }
 }
 // we can create a multiple resources on one localtion
 
@@ -37,11 +42,11 @@ commands:
 then> success msg will come
 
 > before execute we need to do aws Configure
-2. aws Configure //to run any command first we need to authenticate so we use this
+2. aws configure //to run any command first we need to authenticate so we use this
 then> it will ask the id,>go to aws >account>
-security credentials> access key> generate it> get the access value and pass it in command
-id: access key
-secret: access secret
+security credentials> below access key>select any option currently cli>tag optional> generate it> get the access value and pass it in command
+id: access key : AKIAYS2NWIPI6EXFHGOO
+secret: access secret : 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
 region: we can pass or none
 format:  ---||---
 
@@ -52,3 +57,69 @@ output: will list the creation/edition/destory/ of the resourses.
 in end it will provide the status below
 
 4. terraform apply // it is final command , it will ask for confirmation, once yes then it will start creating on resources
+enter the value: yes
+
+it will create a terraform.tfstate file,
+
+go back to aws select the region
+search s3, there u should see the newly created resources
+
+note: any one resorce failed it wont block the other resources
+
+5. terraform destroy //
+
+important : in aws once s3 created it cannot be altered , so if the resorce
+name changed it destroy the old one and create new.
+
+
+we can do the structuer code.
+for provider: provider.tf //provider part will come here
+for varianles: variable.tf //instead of writing sam code multiple we cn use the variable
+
+that we can call in main.tf
+for buket: var.buketname1 ... and so on
+please refer the files, main.tf, variables.tf, provider.tf, dev.tfvars
+
+note: variable names should in variables.tf and dev.tfvars
+
+terraform plan -var-file="dev.tfvars"  ===> this command to point the file from where we need to take the value
+terraform apply -var-file="dev.tfvars"
+terraform destory -var-file="dev.tfvars" ==> destroy all the resources from aws
+to reduce the reducnency we use the count index
+
+
+if network error:
+then set for subnet> in aws search for vpc> check for subnet
+> create one more subnet> select vib> fill the details
+zone will be the region> ipv4 > 172.31.0.20/20 or 172.31.0.0/20
+else use the public one
+
+assement_4
+store ur secret username and Password in the key manger
+then using the data block call that key amd pass it to the resource rds.
+created the key ksecret_key
+
+
+sql server and sql db:
+can we create sql db with sql 
+server?
+ans:A "SQL database" is just a concept — it needs an engine(sql sever) to actually exist and run. If you want to use T-SQL (which is SQL Server's langu)
+
+
+modules: will create separte services for each resourcs to make code 
+its a structuer mvc
+
+
+this can be done quickly for other env also 
+like dev.tfvars > qa.tfvars
+
+create separte state file for env, to avoid the destroy of s3.
+like state for dev == jatin
+state for qa == bhalla
+ex: 
+terraform plan -var-file="dev.tfvars" -state="dev.tfvars" // for dev
+terraform plan -var-file="qa.tfvars" -state="qa.tfvars" // for dev
+
+to do the above we have one more way
+
+terraform workspace: it a concept
