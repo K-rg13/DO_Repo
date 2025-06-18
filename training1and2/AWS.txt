@@ -1,0 +1,27 @@
+user id: kokila.gowda@socgen.com
+pass: tQmE0+=|
+link for console: https://hemantchd94.signin.aws.amazon.com/console
+
+secret manager:
+to access it we need authentication
+that we can get from secret git hub
+
+script powershell
+user bane ND Password for ur vm
+
+then we can retrive the value from scm
+===========================================
+
+instance creation
+-----------------
+open aws>EC2(virtual machine)>launch instance>selec ubuntu>
+
+create key pair >rsa and select .ppk(putty)>create
+network > allow https and all then launch instance
+
+once success> select instance id navigate to instance>
+wait for instanc to run state> select the instance> then click on connect>
+
+it will open connect page he for learning ued the public ip
+then launch the instance>then black terminal will open
+means all good

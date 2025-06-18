@@ -1,0 +1,8 @@
+===> remove later
+local: C:\Program Files\Git 
+vscode: c:User\admin\Downloads\vs.... or C:\Users\admin\AppData\Local\Programs\Microsoft VS Code
+global config
+terraform : remove path from env variable
+cli: C:\Users\admin\Downloads AWSCLIV2
+docker: C:\Users\admin\Downloads docker
+putty: C:\Users\admin\Downloads putty or C:\Program Files\PuTTY\

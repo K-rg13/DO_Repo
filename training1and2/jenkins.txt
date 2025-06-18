@@ -1,0 +1,499 @@
+instanc creation in aws (region should be correct like for the oregano)
+------------------------
+open aws>EC2(virtual machine)>launch instance>selec ubuntu>
+
+create key pair >rsa and select .ppk(putty)>create
+network > allow https and all then launch instance
+
+once success> select instance id navigate to instance>
+wait for instanc to run state> select the instance> then click on connect>
+
+it will open connect page he for learning ued the public ip
+then launch the instance>then black terminal will open
+means all good
+
+now setup jenkins in the machin terminal
+steps: 
+sudo apt install openjdk-17-jre -y
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+ 
+echo 'deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/' | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+ 
+sudo apt-get update && sudo apt-get install jenkins -y
+ 
+sudo service jenkins restart
+ 
+ sudo systemctl status jenkins
+
+ then will get the active(running) in green color like below
+
+ ubuntu@ip-172-31-27-178:~$ sudo systemctl status jenkins
+● jenkins.service - Jenkins Continuous Integration Server
+     Loaded: loaded (/usr/lib/systemd/system/jenkins.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2025-06-17 04:40:10 UTC; 25s ago
+   Main PID: 4197 (java)
+      Tasks: 42 (limit: 1124)
+     Memory: 275.6M (peak: 290.7M)
+        CPU: 16.666s
+     CGroup: /system.slice/jenkins.service
+             └─4197 /usr
+
+
+go back to instance page select instanc id>
+there new page open > select security tab> u should see the port 8080>
+if not select the security group>edit inbond rule>
+add custom with 8080> move back to the instance
+below u will get public ip open it make it http and add :8080 in end u will see the login session
+
+run the below cammand in terminl, 
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+copy the Password and paste in the login page
+Password will be like this : 089905353a7f4c6db4543767233d9520
+
+then paste it in the jenkins login>continue>
+then u see the customize jenkins setup screen
+
+u will see install suggested plugins or select plugins to install
+
+select suggested and wait for installation
+once done create first admin 
+kokilagowda123
+Kokila@13
+socgen email
+
+then instance confi page will give the jenkins url:
+http://44.248.96.164:8080/
+
+the save and finish
+
+then u will get jenkins is ready 
+click on start using jenkins
+
+then u should see the jenkins dashboard
+
+jenkins dashboard:
+new item
+enter item name, for first time freestyle for first time and okay
+config page will open
+description:
+purpose of pipeline like a summary so other can understand
+checks:
+1. discard old build: pipeline if we re run it will create a new log, to aviod that
+ we can check this to discard old builds. 
+
+2. github project: in github we have project if we want to itigrate it we can use it.
+3. This project is parameterized: when we need user input while running the p manually
+4. throttle builds: used to expertise the build not preferable
+5.execute concurrent builds in necessary: to run multiple p parallally
+
+we do have the advanced to select more
+
+sources code mangement: (connet and manage ur code repository to automatically pull the latest code)
+1. none(with in the pipeline we are storeing everthing and run it) ; no version controlling
+2. or create a ps1 file and keep in github then call it in pipeline ; version controlling best options;
+
+triggers: on wht condition this pipline should run.
+1. triggers build remotely : writen a script and writting the condition using it u want to trigger this p using the script.
+2. build afte other project are built: p1 should execute then p2 sould trigger that can we can use this trigger
+3. build periodically: ur defineing the timeline and u want to run the scriot in perticular time like corn(pattern we have to give).
+4. github hook trigger for GITSc, polling: in github will create webhook and attach it here, then it will trigger with help on webhook trigger
+5. poll SCM: 
+
+Environment:
+we can set env here
+1. Delete workspace before build starts: fresh installation of folder
+2. use secret texts or file: we have the options to keep secret and consume
+3. console outpu:
+4.
+5. terminate a build it it stuck:
+
+build steps:
+similar to git actions we can add the steps like yaml file like how we did it in git
+it will have shell terminal and accept command
+
+post build:
+once build complete we can do the available then apply
+
+then pipline will be start
+
+created my first pipeline then select build now
+once build started then u can see the console output there
+i should see the hello world!
+
+currently we have one machin that we created that is master machine
+but in org we wont do the changes directly in master that setup handled lastExecVersion
+
+modify p1
+go to dashboard > config> do the changes> then build and see the log> everytime new build will be triggered
+
+
+
+second item p2:
+select pipeline, there u will have pipelinescript
+side dropdown, 3 options are there select hello world
+1. it will give script:
+pipeline {
+    agent any
+
+    stages{
+        stage('hello'){
+            echo ()
+        },
+        stage('bye'){
+            stop()
+        }
+    }
+}
+
+2. git + maven : declarative will start from pipeline,
+3. node: will be scripted where will see node in start not pipeline
+
+setup tools:
+dashboard> manage jenkins> tools> need to define a path where the application resides
+we selected maven so name of the maven present in script should be added in tools
+and save it.
+then run the build it will be success
+we will get the jar file
+that jar details will be added i pom.xml file from where we are getting the source code ex: git url https://github.com/jglick/simple-maven-project-with-tests.git
+
+
+
+once build we can run based on the stages also
+select stages whcih we want to run.
+pipeline steps: will give the brif of he process
+
+
+
+better way:
+using git so we can manage the version
+so instead of adding script in jenkins
+will create new file called jekinssfile paste the sample file 
+merge the code, copy the repi link >come back to jenkins>
+Definition select SMC in this selec git> we need to fill the proper details>
+like url ,branch name and all 
+script path should be exact match 
+so this will make sure any changes are there then we can hangle in git a good version control.
+
+if private repo:
+add the credentials, bcs repo path will give error
+domain< gloabl credentials
+kind : username and pass or Github app
+ID: github1 (should be unique in j env)
+des:
+appid:
+key: pat token we need to add
+for pat > go to github progile> settign> developer setting>
+create new pat token, personal access token>classic> classic>  
+add note, and generate the code
+copy the token and in above jenkins path.
+if we get no valid crumb
+try command or try to resolve the issue
+
+Go to: Manage Jenkins → Configure Global Security
+Uncheck ✅ "Prevent Cross Site Request Forgery exploits"
+ 
+
+ using git webhook> use jenkis url/github-webhook/> go to jenlns in account secute
+ > [paste the secret] 11eb63e9c9eaa716be34cf9adfa664efac > disable ssl for public> then select the event>
+ then add.
+ if hook not triggered in jenkis add a github integration pulgins in jenkis manage jenkins > pulgins> available> install> restart the jenknis serevice
+
+nodes:
+single virtual machine called master.
+in jenkins, to aviod the issue in master.
+we can use the multiple jobs to run nodes
+in node no need to install jenkins and alljust need to config
+create node"
+create new instanc , it is not compelsary to use same operating system for this
+link windows(.net), linux(java and python).
+
+ubuntu> same key pair>all ssh > launch instanc
+connect to this agent
+go back to jenkins> manage> nodes>new node>
+name of node u-a>permenet agent > create>description>in remove directory>
+/home/jenkins> labels: kokila> usage: as much as> launch: launch agent via ssh, host ip adress of the agent node>credentials >add kind: ssh , id: agent, username: ububtu
+, private key: go back to master jenkins(demo-kokila), 
+create key using command: ssh-keygen -t rsa -b 4096 -C "jenkins-agent"
+
+copy cat public key from above paste it> once public kee generated 
+>go back to agent use the command: 
+>sudo vim auto and we need to pass the key of main Server
+go back to main Server copy the code and paste in agent
+;wq
+to save
+
+once done go back to jenkins print private .pub is public use .rs its private key
+paste the key.
+/.ssh/id_rsa
+/.ssh/id_rsa.pub
+
+once done launch agent
+
+try this:
+in master: ssh-keygen -t rsa -b 4096 -C "jenkins-agent"
+it will generate public key
+
+copy and keep it.
+then go to slave instance:
+ubuntu@ip-172-31-112-198:~$ cd /.rsa
+-bash: cd: /.rsa: No such file or directory
+ubuntu@ip-172-31-112-198:~$ cd ~/.ssh
+ubuntu@ip-172-31-112-198:~/.ssh$ ls
+authorized_keys
+ubuntu@ip-172-31-112-198:~/.ssh$ sudo vim authorized_keys
+
+then go to master:
+ cat /home/ubuntu/.ssh/id_rsa.pub
+ paste the copy code.
+ shift+; +wq
+ then
+cat /home/ubuntu/.ssh/id_rsa
+copy from begin to end past it in jenkins setting key
+then
+
+ubuntu@ip-172-31-112-198:~/.ssh$ sudo mkdir /home/jenkins
+ubuntu@ip-172-31-112-198:~/.ssh$ sudo apt install openjdk-17-jre -y
+Read
+
+o VM guests are running outdated hypervisor (qemu) binaries on this host.
+ubuntu@ip-172-31-112-198:~/.ssh$ 
+ubuntu@ip-172-31-112-198:~/.ssh$ sudo chown -R jenkins:jenkins /home/jenkins
+chown: invalid user: ‘jenkins:jenkins’
+ubuntu@ip-172-31-112-198:~/.ssh$ sudo chmod 755 /home/jenkins
+ubuntu@ip-172-31-112-198:~/.ssh$ 
+ubuntu@ip-172-31-112-198:~/.ssh$ mkdir -p /home/ubuntu/jenkins-agent
+ubuntu@ip-172-31-112-198:~/.ssh$ chown ubuntu:ubuntu /home/ubuntu/jenkins-agent
+ubuntu@ip-172-31-112-198:~/.ssh$
+
+remote root directory in jenkins under node/home/ubuntu/jenkins-agent
+
+host : agent ,> add credentials> host: non verifing> save
+
+demo-kokila-agent
+
+then launch the node
+
+then in the git change the jenkins file which we added 
+webhook the add agent { label "demo-kokila-agent" }  (name of the agent)
+and commit.
+then it should trigger the build automatically
+
+
+
+
+
+
+
+
+
+pub key:
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZpHv99Owld3D9klEo/rVodI97duvMZ71yIlKcyMDV3MVACRxO+2sAgDkV2rG5m2v9kU0gjhQnzZjq7zi07q5QYb/CV0GsTFHB5OUw7zATQsSIupSQd0mRBO0MDxqxbmT9DesJmzw9cqYcFj0uPG90aheXw19ffRGgICOWjMfDaQava/v6GqNFr/BajxzkKfd556oi8Gj8kFTp6ZoiOWHigdBxn9xUvXSY386ZFlrbKWhBNAHn331mkcQd4EgWWBkrbZMcSGvfNFa++gC6wk2lrODoHsYhHtB8aZOCYE8CT3neUMhM1iJ8lLOa5Dhy3JJIhQ0/+DFKo8kOlRgTYeEDjp/SLmvCoEmcpFXUOWJGlR8yhfPb2eaZxAanirhnMF09sixYc3uk8WNCFHKRxa5ZzFUKcZ7CcD83lBvaObQ/XAXXCX8yVk96qULEsNn8MNjhNv/4vCrJxd+/joTIbf2r49ris/m6sFPPWxTUPNwCZaUbEco29hY4hL2t3dx0/X9HE25scP4MfV6epj7INWhTTrXjZEOscIsCeLma8q/vKt7++Zuz1qKAqS1DRZb1qDuVroBs/zIQ0el73cI9i9iFYGKq3G5mNZ3vwyE1vk+7HQDfkcPIl2xlNXzwt6TqksX1ZWmxi3zlPC9af3ovO5wdf8+HaZPDcEfIemTt9IxXDw== jenkins-agent
+
+private key:
+
+-----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----
+
+
+
+
+
+brefing:
+master: demo-kokila
+agent: demo-agent-2k working one
+
+in master:
+key gen, 
+1.public: (it should be copied into slave into to the slave) file ends with --- rsa.pub
+2. private key (we copied to jenkins) file ends with ---rsa
+
+in slave 
+mkdir -p /home/ubuntu/jenkins-agent
+chown ubuntu:ubuntu /home/ubuntu/jenkins-agent
+also installed the jave in slave
+
+secret> manage> credentials>system> change the key in future
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=====================================================
+if any issue in login:
+try below 
+
+sudo rm /var/lib/jenkins/secrets/initialAdminPassword
+
+sudo systemctl restart jenkins
+ 
+sudo systemctl status jenkins
+
+ 
+sudo rm /var/lib/jenkins/secrets/initialAdminPassword
+
+sudo rm /var/lib/jenkins/jenkins.install.UpgradeWizard.state
+
+sudo rm /var/lib/jenkins/jenkins.install.InstallUtil.lastExecVersion
+
+sudo systemctl restart jenkins
+
+ 
+sudo apt purge jenkins -y
+
+sudo rm -rf /var/lib/jenkins
+
+sudo apt install jenkins -y
+
+sudo systemctl start jenkins
+
+ 
+sudo systemctl stop jenkins
+
+ 
+sudo vim /var/lib/jenkins/config.xml ---> find for usesecurity then make it false
+press 1 change the value ;wq then cat again run command it should be false
+ 
+sudo systemctl start jenkins 
+
+ 
+activity:
+create a pipeline
+stage1: create a directory
+stage2: create a file the directory
+stage3: copy this directory to some other location
+
+mkdir /home/kokila , 
+mkdir /home/gowda
+cd /home/kokila 
+touch abc.text
+
+stage3: cp this kokila directory to 
+
+-----------------------
+
+
+pipeline {
+    agent { label "demo-kokila-agent" }
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
+
+    stages {
+        stage('mk') {
+            steps {
+               mkdir /home/kokila
+            mkdir /home/kokila
+            }
+
+            // post {
+            //     // If Maven was able to run the tests, even if some of the test
+            //     // failed, record the test results and archive the jar file.
+            //     success {
+            //         junit '**/target/surefire-reports/TEST-*.xml'
+            //         archiveArtifacts 'target/*.jar'
+            //     }
+            // }
+        }
+    }
+}
+
+dashboard> manage> system>
+--------------below
+how to keep the backup, 
+we can do usng the system path /var/lib/jenkins
+then go to master instance > cd above path>
+ls>
+it has complete details of the master > from this also we can take the backup SLmvCoEmcpFXUOWJGlR8yhfPb2eaZxAanirhnMF09sixYc3uk8WNCFHKRxa5ZzFUKcZ7CcD83lBvaObQ
+>
+system message: notification section.
+executors: no of node running parallely
+labels: any label for master machine
+ip address: jenkis url will be here
+admin e-mail: like admin get all info
+mtrics: how many people using secret
+pipeline speed: needs to be faster else queue will take time.
+heath:
+https proxy: like how we provide proxy
+timestamo:
+github servres: github platform, 2 selfhosted (made a setup of github)
+and so on...
+
+
+authentication between aws and github:
+plugins aws credentials> install> username and Password and access key>
+
+
+assement_3:
+pipeline 
+
+
+
+stage1: agent1
+command that is supported by ubuntu
+
+
+stage2: run from agent2
+commands are supported by windows
+
