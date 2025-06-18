@@ -1,6 +1,11 @@
 meeting Id: 3632579378949
 pass: wJ9eP24q
 =============================jatin trainer==============
+day 1: git setup
+day 2: jenkins
+day 3: 
+day 4:
+day 5:
 
 Devops: AWS not AZURE
 version control: ex:github,
